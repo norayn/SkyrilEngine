@@ -1,9 +1,14 @@
 # SkyrilEngine
-(https://github.com/norayn/SkyrilEngine/blob/master/progress_in_screenshots/logo.PNG)
+![logo](https://github.com/norayn/SkyrilEngine/blob/master/progress_in_screenshots/logo.PNG)
+
 Проект написания среды под разработку игры переросший в конструктор по примеру анрила или юнити.
+
 Период разработки: 02.2018 - 06.2019  
+
 Платформонезависимость, рендер, ввод и прочее взял - Love2d.
+
 Гуя для редактора - Imgui.
+
 Сцену объектную систему скрипты и редакторы для всего этого пилю уже я. 
 
 Старт редактора Editor/_RUN_EDITOR.bat 
