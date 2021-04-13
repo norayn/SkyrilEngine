@@ -29,7 +29,7 @@
 Игровая логик строится на осонове небольших скриптов (гравитация, камера, движение, разнообразные триггеры итп.) закрепленных за обьектами( примеры Editor/proj/res/cpgd/scripts или Editor/proj/res/test_map/scr )
 
 
-Скриншоты разных этапов разработки ( Editor/progress_in_screenshots )  
+Скриншоты разных этапов разработки ( /progress_in_screenshots )  
 
 ![24.04.2018_2](https://raw.githubusercontent.com/norayn/SkyrilEngine/main/progress_in_screenshots/24.04.2018_2.PNG)
 ![12.03.2018](https://raw.githubusercontent.com/norayn/SkyrilEngine/main/progress_in_screenshots/12.03.2018.gif)
