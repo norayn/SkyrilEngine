@@ -1,0 +1,69 @@
+
+
+object_props = class( object_base, function( self )
+	object_base.init( self )
+
+	self.Name = "props"
+	self.ObjType = OBJECT_TYPE_PROPS
+	--self.ParallaxK = { 1, 1 }
+
+	self.MulColor = { 1, 1, 1, 1 }
+
+	self.MapData = nil
+	self.MapDataName = nil	
+end)
+
+
+function object_props:DrawData( Camera )
+	self:DrawDataObj( self.MapData.RootObj )
+end
+
+
+function object_props:Update( Delta )
+
+end
+
+
+function object_props:Load( FullName )
+	self.MapDataName = FullName
+	
+	local FileName = "proj/" .. FullName
+	self.MapData = table.read( FileName ) 
+
+	LogE( "Loaded props " .. FullName, "oft" )
+end
+
+
+function object_props:DrawDataObj( Obj )
+	if not Obj.Visible then	return	end
+	
+	local X = Obj.GlobalPos[ 1 ] * self.ResultScale + self.ResultOffset[ 1 ] 
+	local Y = Obj.GlobalPos[ 2 ] * self.ResultScale + self.ResultOffset[ 2 ] 
+	local W = Obj.Size[ 1 ] * self.ResultScale
+	local H = Obj.Size[ 2 ] * self.ResultScale
+
+	if Obj.TexName ~= "" then
+		if Obj.MapQuad == nil then
+			local Tex = g_ResMgr:GetImage( Obj.TexName )	
+			Obj.MapQuad = g_ResMgr:GethQuad( Tex, Obj.TexRect )					
+		end
+		
+		--love.graphics.setColor( 255, 255, 255, 255 )
+		love.graphics.setColor( 255 * self.MulColor[ 1 ] * Obj.MulColor[ 1 ], 
+								255 * self.MulColor[ 2 ] * Obj.MulColor[ 2 ], 
+								255 * self.MulColor[ 3 ] * Obj.MulColor[ 3 ], 
+								255 * self.MulColor[ 4 ] * Obj.MulColor[ 4 ] )
+		local Tex = g_ResMgr:GetImage( Obj.TexName )			
+		local StSlX, StSlY = Obj.Size[ 1 ] / Obj.TexRect[ 3 ] * self.ResultScale, Obj.Size[ 2 ] / Obj.TexRect[ 4 ] * self.ResultScale			
+		
+		local QuadViewport = { Obj.MapQuad:getViewport() }
+		local OrigPvtX, OrigPvtY = QuadViewport[ 3 ] * Obj.Pivot[ 1 ], QuadViewport[ 4 ] * Obj.Pivot[ 2 ]
+		love.graphics.draw( Tex, Obj.MapQuad, X, Y, Obj.Rotate, StSlX, StSlY, OrigPvtX, OrigPvtY )
+	end
+
+	if #Obj.Childs > 0 then
+		for _, child_object in pairs( Obj.Childs ) do
+			self:DrawDataObj( child_object )
+		end
+	end
+end
